@@ -13,10 +13,10 @@
 * the remainder is the last digit of the octal number (1, in this case). 
 * Then divide the original number by 8 and repeat the process to arrive at 
 * the next-to-last digit. (printf is capable of displaying numbers in base 
-* 8, as we’ll see in Chapter 7, so there’s actually an easier way to write 
+* 8, as weâ€™ll see in Chapter 7, so thereâ€™s actually an easier way to write 
 * this program).
 *
-* The program uses a recursive version of this decimal to octal conversion 
+* The program uses a recursive version of this decimal-to-octal conversion 
 * algorithm:
 *   int octal(int d) {
 *     int remainder, n = 0;
@@ -51,15 +51,18 @@
 #define MAX_INPUT_ATTEMPTS 3     // Maximum input attempts before aborting.
 
 // Recursive decimal to octal conversion.
-int octal(int n) {
+int octal(int n) 
+{
 	assert(n >= 0);
+
 	if (n > 0)
 		return octal(n / 8) * 10 + n % 8;
 	return 0; 
 }
 
 // Program starts here.
-int main(void) {
+int main(void) 
+{
 	int decimalNumber = 0;             // Number converted to octal.
 	int attempts = MAX_INPUT_ATTEMPTS; // Input attempt counter.
 	bool inputValid = false;           // Input validity flag, assumed bad (false).
@@ -67,29 +70,35 @@ int main(void) {
 	assert(attempts > 0); // Assert attempts valid non-zero, positive number.
 
 	// Attempt only so many inputs.
-	while (attempts--) {
+	while (attempts--) 
+	{
 		char input[7];  // Holds user input as string.
 		int d;          // Temporary holds input number.
 
 		// Prompt and grab user input.
 		fputs("Enter a number between 0 and 32767: ", stdout);
-		if (!fgets(input, sizeof input, stdin)) {
+		if (!fgets(input, sizeof input, stdin)) 
+		{
 			fputs("\nFatal program error!\n", stderr);
 			exit(EXIT_FAILURE);
 		}
-		else if (!strchr(input, '\n')) {
+		else if (!strchr(input, '\n')) 
+		{
 			// input too long, eat remaining characters.
 			while (fgets(input, sizeof input, stdin) && !strchr(input, '\n'))
 				; // Empty body.
 			fputs("Too many characters input.\n", stdout);
 		}
-		else {
+		else 
+		{
 			// Catch special case of null input.
 			if (strlen(input) <= 1)
 				continue;
 			// Attempt to convert from string to int, and validate.
-			if (sscanf_s(input, "%d", &d)) {
-				if (d >= MIN_INPUT && d <= MAX_INPUT) {
+			if (sscanf_s(input, "%d", &d)) 
+			{
+				if (d >= MIN_INPUT && d <= MAX_INPUT) 
+				{
 					decimalNumber = d;
 					inputValid = true;
 					break; // Exit.
